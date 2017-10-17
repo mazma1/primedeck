@@ -1,9 +1,22 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import isEmpty from 'lodash/isEmpty';
+import sendMail from '../utils/nodeMailer';
+import validateInput from '../utils/regValidation';
+import pagination from '../utils/pagination';
 import models from '../models';
+
+const salt = bcrypt.genSaltSync(10);
 
 /* eslint-disable object-curly-newline */
 export default {
+  /**
+   * Handler method for signin route: POST /api/v1/users/signin
+   * Authenticates and logs a user in
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   signin(req, res) {
     const errors = {};
     if (!req.body.identifier || !req.body.password) {
@@ -28,10 +41,10 @@ export default {
           res.status(401).send(errors);
         } else if (user) {
           if (bcrypt.compareSync(req.body.password, user.password)) {
-            const { id, firstName, lastName, username, email, type, phoneNumber } = user;
+            const { id, firstName, lastName, username, email, role, phoneNumber } = user;
             const token = jwt.sign({
               data: {
-                id, firstName, lastName, username, email, type, phoneNumber
+                id, firstName, lastName, username, email, role, phoneNumber
               }
             }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
             res.status(200).send({
@@ -44,5 +57,97 @@ export default {
         }
       }).catch(err => res.status(500).send(err.message));
     }
-  }
+  },
+
+  /**
+   * Registers a new user
+   * Route: POST: /api/v1/users/register
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   * @returns {response}
+   */
+  register(req, res) {
+    const { role } = req.decoded.data;
+    if (role !== 'admin') {
+      return res.status(403).send({
+        error: 'You do not have permission to register a user'
+      });
+    }
+    const { errors, valid } = validateInput(req.body);
+    if (!valid) {
+      res.status(400).send(errors);
+    } else {
+      models.User.findOne({
+        where: {
+          $or: [{ username: req.body.username }, { email: req.body.email }]
+        },
+      }).then((existingUser, err) => {
+        if (existingUser) {
+          if (existingUser.username === req.body.username) {
+            errors.username = 'Username already exists';
+          }
+          if (existingUser.email === req.body.email) {
+            errors.email = 'Email already exists';
+          }
+          if (!isEmpty(errors)) {
+            res.status(409).send(errors);
+          }
+        } else {
+          const { firstName, lastName, email, phoneNumber } = req.body;
+          const username = req.body.username.toLowerCase();
+          const userRole = req.body.role;
+          const userData = {
+            firstName,
+            lastName,
+            username,
+            email,
+            role: userRole,
+            phoneNumber: `234${phoneNumber.slice(1)}`,
+            password: bcrypt.hashSync(username, salt)
+          };
+          models.User.create(userData)
+            .then((user) => {
+              sendMail(req, user);
+              return res.status(201).send({
+                message: 'User was successfully registered'
+              });
+            }).catch(error => res.status(500).send({ error: error.message }));
+        }
+      }).catch(error => res.status(500).send({ error: error.message }));
+    }
+  },
+
+  /**
+   * Fetches all the users
+   * Route: GET: /api/v1/users
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   * @returns {response} array of all users
+   */
+  allUsers(req, res) {
+    const { role } = req.decoded.data;
+    const limit = req.query.limit || 2;
+    const offset = req.query.offset || 0;
+    if (role === 'student') {
+      return res.status(403).send({
+        error: 'You do not have permission to view all users'
+      });
+    }
+    return models.User.findAndCountAll({
+      attributes: [
+        'id', 'firstName', 'lastName', 'username', 'phoneNumber', 'role'
+      ],
+      limit,
+      offset
+    }).then((users) => {
+      if (users.count > 0) {
+        res.status(200).send({
+          users: users.rows,
+          pagination: pagination(users.count, limit, offset)
+        });
+      }
+    }).catch(error => res.status(500).send(error.message));
+  },
 };

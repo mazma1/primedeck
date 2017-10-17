@@ -43,7 +43,7 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    type: {
+    role: {
       type: DataTypes.ENUM,
       values: ['admin', 'teacher', 'student'],
       validate: {

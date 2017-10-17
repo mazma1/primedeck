@@ -10,7 +10,7 @@ module.exports = {
         phoneNumber: 2348098044534,
         email: 'mazi.mary.o@gmail.com',
         password: bcrypt.hashSync(process.env.SEED_PASSWORD, bcrypt.genSaltSync(7)),
-        type: 'admin',
+        role: 'admin',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -21,7 +21,7 @@ module.exports = {
         phoneNumber: 2348068668100,
         email: 'sola@gmail.com',
         password: bcrypt.hashSync(process.env.SEED_PASSWORD, bcrypt.genSaltSync(7)),
-        type: 'teacher',
+        role: 'teacher',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -32,7 +32,7 @@ module.exports = {
         phoneNumber: 2348068668101,
         email: 'chyke@yahoo.com',
         password: bcrypt.hashSync(process.env.SEED_PASSWORD, bcrypt.genSaltSync(7)),
-        type: 'student',
+        role: 'student',
         createdAt: new Date(),
         updatedAt: new Date()
       }

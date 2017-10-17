@@ -50,7 +50,7 @@ module.exports = {
           notEmpty: true
         }
       },
-      type: {
+      role: {
         type: Sequelize.ENUM('admin', 'teacher', 'student'),
         values: ['admin', 'teacher', 'student'],
         validate: {
