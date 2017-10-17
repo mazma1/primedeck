@@ -5,6 +5,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config';
+import userRoute from './routes/user';
 
 /* eslint-disable function-paren-newline */
 
@@ -15,6 +16,7 @@ const port = process.env.PORT || 2000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', userRoute);
 
 if (process.env.NODE_ENV !== 'production') {
   const compiler = webpack(webpackConfig);

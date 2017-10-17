@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Subject = DataTypes.define('Subject', {
+  const Subject = sequelize.define('Subject', {
     title: {
       allowNull: false,
       type: DataTypes.STRING,
