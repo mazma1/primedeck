@@ -7,5 +7,8 @@ const router = express.Router();
 router.post('/api/v1/users/signin', userController.signin);
 router.post('/api/v1/users/register', validateToken, userController.register);
 router.get('/api/v1/users', validateToken, userController.allUsers);
+router.get('/api/v1/users/:userId', validateToken, userController.singleUser);
+router.put('/api/v1/users/:userId', validateToken, userController.updateUser);
+
 
 export default router;

@@ -85,10 +85,10 @@ export default {
       }).then((existingUser, err) => {
         if (existingUser) {
           if (existingUser.username === req.body.username) {
-            errors.username = 'Username already exists';
+            errors.username = 'User with username already exists';
           }
           if (existingUser.email === req.body.email) {
-            errors.email = 'Email already exists';
+            errors.email = 'User with email already exists';
           }
           if (!isEmpty(errors)) {
             res.status(409).send(errors);
@@ -106,13 +106,12 @@ export default {
             phoneNumber: `234${phoneNumber.slice(1)}`,
             password: bcrypt.hashSync(username, salt)
           };
-          models.User.create(userData)
-            .then((user) => {
-              sendMail(req, user);
-              return res.status(201).send({
-                message: 'User was successfully registered'
-              });
-            }).catch(error => res.status(500).send({ error: error.message }));
+          models.User.create(userData).then((user) => {
+            sendMail(req, user);
+            return res.status(201).send({
+              message: 'User was successfully registered'
+            });
+          }).catch(error => res.status(500).send({ error: error.message }));
         }
       }).catch(error => res.status(500).send({ error: error.message }));
     }
@@ -149,5 +148,83 @@ export default {
         });
       }
     }).catch(error => res.status(500).send(error.message));
+  },
+
+  singleUser(req, res) {
+    const { id, role } = req.decoded.data;
+    if (req.params.userId && !isNaN(req.params.userId)) {
+      models.User.findOne({
+        where: { id: req.params.userId },
+        attributes: [
+          'id', 'firstName', 'lastName', 'username', 'phoneNumber', 'role'
+        ]
+      }).then((user) => {
+        if (!user) {
+          return res.status(404).send({ message: 'User does not exist' });
+        }
+        if (role === 'student' && id !== parseInt(req.params.userId, 10)) {
+          return res.status(403).send({
+            message: 'You don\'t have the permission to view other profiles'
+          });
+        }
+        return res.status(200).send({ user });
+      }).catch(error => res.status(500).send(error.message));
+    } else {
+      res.status(400).send({ message: 'Invalid user id' });
+    }
+  },
+
+  updateUser(req, res) {
+    const { id, role } = req.decoded.data;
+    if (req.params.userId && !isNaN(req.params.userId)) {
+      if (role !== 'admin' && id !== parseInt(req.params.userId, 10)) {
+        return res.status(403).send({
+          message: 'You don\'t have the permission to update other profiles'
+        });
+      }
+
+      if (role === 'student') {
+        const { firstName, lastName, email, role } = req.body;
+        if (firstName || lastName || email || role) {
+          return res.status(403).send({
+            message: 'You can only update your username and password as a student'
+          });
+        }
+      }
+
+      if (role === 'teacher') {
+        const { role } = req.body;
+        if (role) {
+          return res.status(403).send({
+            message: 'You don\'t have the permission to update your role'
+          });
+        }
+      }
+      models.User.findById(req.params.userId)
+        .then((user) => {
+          if (!user) {
+            return res.status(404).send({
+              message: 'User Not Found',
+            });
+          }
+          return models.User.update({
+            where: { id: req.params.userId }
+          }, {
+            firstName: req.body.firstName || user.firstName,
+            lastName: req.body.lastName || user.lastName,
+            username: req.body.username || user.username,
+            email: req.body.email || user.email,
+            password: bcrypt.hashSync(req.body.password, salt) || user.password,
+            role: req.body.role || user.role
+          }).then((updatedUser) => {
+            res.status(200).send({
+              message: 'User successfully updated',
+              updatedUser
+            });
+          }).catch();
+        }).catch();
+    } else {
+      res.status(400).send({ message: 'Invalid user id' });
+    }
   },
 };
