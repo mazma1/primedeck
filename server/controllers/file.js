@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     callback(null, `${file.originalname} - ${Date.now()} ${path.extname(file.originalname)}`);
   }
 });
-const upload = multer({ storage }).single('userFile');
+const upload = multer({ storage }).single('file');
 
 export default {
   uploadDoc(req, res) {

@@ -6,7 +6,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config';
 import userRoute from './routes/user';
-import docRoute from './routes/doc';
+import fileRoute from './routes/file';
 
 /* eslint-disable function-paren-newline */
 
@@ -18,7 +18,7 @@ const port = process.env.PORT || 2000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', userRoute);
-app.use('/', docRoute);
+app.use('/', fileRoute);
 
 if (process.env.NODE_ENV !== 'production') {
   const compiler = webpack(webpackConfig);
