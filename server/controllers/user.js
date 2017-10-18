@@ -9,6 +9,7 @@ import models from '../models';
 const salt = bcrypt.genSaltSync(10);
 
 /* eslint-disable object-curly-newline */
+/* eslint-disable consistent-return */
 export default {
   /**
    * Handler method for signin route: POST /api/v1/users/signin
@@ -227,4 +228,27 @@ export default {
       res.status(400).send({ message: 'Invalid user id' });
     }
   },
+
+  deleteUser(req, res) {
+    const { role } = req.decoded.data;
+    if (role !== 'admin') {
+      return res.status(403).send({
+        error: 'You do not have permission to delete a user'
+      });
+    }
+    if (req.params.userId && !isNaN(req.params.userId)) {
+      models.User.findById(req.params.userId)
+        .then((user) => {
+          if (!user) {
+            return res.status(404).send({ message: 'User Not Found' });
+          }
+          return user.destroy()
+            .then(() => res.status(200).send({
+              message: 'User successfully deleted'
+            })).catch();
+        }).catch();
+    } else {
+      res.status(400).send({ message: 'Invalid user id' });
+    }
+  }
 };
