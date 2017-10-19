@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
   let token;
 

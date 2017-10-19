@@ -118,7 +118,7 @@ export default {
    *
    * @param {any} req incoming request from the client
    * @param {any} res response sent back to client
-   * @returns {response} array of all users
+   * @returns {res} array of all users
    */
   allUsers(req, res) {
     const { role } = req.decoded.data;

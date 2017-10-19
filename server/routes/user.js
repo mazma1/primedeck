@@ -1,7 +1,7 @@
 import express from 'express';
 import userController from '../controllers/user';
 import validateToken from '../middleware/validateToken';
-import verifyAdmin from '../middleware/verifyAdmin';
+import { verifyAdmin } from '../middleware/verifyRole';
 import validateUserId from '../middleware/validateUserId';
 
 const router = express.Router();
