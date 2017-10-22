@@ -7,30 +7,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING,
         validate: {
           notEmpty: true
         }
       },
-      class: {
+      offeredBy: {
         allowNull: false,
-        type: Sequelize.STRING,
-        validate: {
-          notEmpty: true
-        }
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: []
       },
-      teacherId: {
+      teachers: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        validate: {
-          notEmpty: true
-        }
-      },
-      note: {
-        allowNull: false,
-        type: Sequelize.ARRAY(Sequelize.STRING)
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: []
       },
       createdAt: {
         allowNull: false,

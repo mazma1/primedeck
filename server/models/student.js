@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const Student = sequelize.define('Student', {
-    StudentId: {
+    studentId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       validate: {
@@ -14,30 +14,12 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    class: {
+    className: {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
-    },
-    admissionDate: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: true
-      }
-    },
-    admissionNumber: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      unique: true,
-      validate: {
-        notEmpty: true
-      }
-    },
-    guardianId: {
-      type: DataTypes.INTEGER
     }
   });
   Student.associate = (models) => {};

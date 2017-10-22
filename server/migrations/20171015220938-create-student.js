@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      StudentId: {
+      studentId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         validate: {
@@ -21,30 +21,20 @@ module.exports = {
           notEmpty: true
         }
       },
-      class: {
+      className: {
         allowNull: false,
         type: Sequelize.STRING,
         validate: {
           notEmpty: true
         }
       },
-      admissionDate: {
+      createdAt: {
         allowNull: false,
-        type: Sequelize.STRING,
-        validate: {
-          notEmpty: true
-        }
+        type: Sequelize.DATE
       },
-      admissionNumber: {
+      updatedAt: {
         allowNull: false,
-        type: Sequelize.STRING,
-        unique: true,
-        validate: {
-          notEmpty: true
-        }
-      },
-      guardianId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DATE
       }
     });
   },

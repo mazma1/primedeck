@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import isEmpty from 'lodash/isEmpty';
-import sendMail from '../utils/nodeMailer';
+import sendMail from '../utils/sendEmail';
 import validateInput from '../utils/regValidation';
 import pagination from '../utils/pagination';
 import models from '../models';
@@ -102,6 +102,17 @@ export default {
             password: bcrypt.hashSync(username, salt)
           };
           models.User.create(userData).then((user) => {
+            if (user.role === 'student') {
+              const { age, className } = req.body;
+              const studentDetails = {
+                studentId: user.id,
+                age,
+                className
+              };
+              models.Student.create(studentDetails)
+                .catch(error => res.status(500).send({ error: error.message }));
+              // const { subjects } = req.body;
+            }
             sendMail(req, user);
             return res.status(201).send({
               message: 'User was successfully registered'
@@ -118,6 +129,7 @@ export default {
    *
    * @param {any} req incoming request from the client
    * @param {any} res response sent back to client
+   *
    * @returns {res} array of all users
    */
   allUsers(req, res) {
