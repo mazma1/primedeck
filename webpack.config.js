@@ -31,14 +31,30 @@ module.exports = {
           fallback: 'style-loader',
           use: 'css-loader?sourceMap!sass-loader?sourceMap'
         })
-      }
+      },
+      {
+        test: /bootstrap\/dist\/js\/umd\//,
+        loader: 'imports?jQuery=jquery'
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/fonts/[name].[ext]'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
+      },
     ]
   },
   resolve: {
     extensions: ['.js', '.jsx']
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './client/index.html' }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
+    // new HtmlWebpackPlugin({ template: './client/index.html' }),
     new ExtractTextPlugin({ filename: 'css/style.css' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
