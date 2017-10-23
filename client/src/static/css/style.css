@@ -1,5 +1,50 @@
+/* latin */
+@font-face {
+  font-family: 'Delius';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Delius-Regular'), url(https://fonts.gstatic.com/s/delius/v7/bDpuiE0ncvY05_AsiZIWR-vvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
 body {
-  background-color: whitesmoke;
-  color: red;
-  text-align: center;
+  font-family: 'Delius', cursive;
+}
+
+.margin-top30 {
+  margin-top: 30px;
+}
+
+.padding-bottom24 {
+  padding-bottom: 24px;
+}
+
+.flex-container {
+  background: linear-gradient(
+                     rgba(20,20,20, .5), 
+                     rgba(20,20,20, .5)),
+                     #098cf5 url("../img/signin-bg.jpg");
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+}
+
+.form-width {
+  width: 30vw;
+}
+
+.form-panel {
+  border: 1px solid white;
+    padding: 50px;
+    border-radius: 5px;
+    background: whitesmoke;
+}
+
+.brand-text {
+  margin-top: -70px;
+  margin-bottom: 20px;
+  color: #fff;
 }

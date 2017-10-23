@@ -26,7 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
-    // publicPath: webpackConfig.output.publicPath
+    publicPath: webpackConfig.output.publicPath
   }));
   app.use(webpackHotMiddleware(compiler));
 }

@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: '/',
     filename: 'bundle.js',
-    // publicPath: '/dist/'
+    publicPath: 'http://localhost:2000'
   },
   module: {
     rules: [
@@ -44,6 +44,10 @@ module.exports = {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
       },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        loader: 'file-loader?name=/img/[name].[ext]'
+      }
     ]
   },
   resolve: {
