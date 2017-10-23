@@ -7,12 +7,7 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    offeredBy: {
-      allowNull: false,
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      defaultValue: []
-    },
-    teachers: {
+    teacherId: {
       allowNull: false,
       type: DataTypes.ARRAY(DataTypes.STRING),
       defaultValue: []

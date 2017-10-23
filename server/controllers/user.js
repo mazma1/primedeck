@@ -111,7 +111,14 @@ export default {
               };
               models.Student.create(studentDetails)
                 .catch(error => res.status(500).send({ error: error.message }));
-              // const { subjects } = req.body;
+              const { subjects } = req.body;
+              subjects.map((subject) => {
+                models.StudentSubject.create({
+                  studentId: user.id,
+                  subjectId: subject
+                })
+                  .catch(error => res.status(500).send({ error: error.message }));
+              });
             }
             sendMail(req, user);
             return res.status(201).send({

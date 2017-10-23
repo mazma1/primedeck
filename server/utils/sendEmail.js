@@ -8,7 +8,7 @@ function sendEmail(req, user) {
     message: `Hello ${user.firstName} ${user.lastName},
               <br><br>An account has been created for you on Prime Deck.
               Kindly follow the link below to complete your registration.
-              <br><br><a href='http://${req.headers.host}'>Prime Deck ></a>
+              <br><br><a href='http://${req.headers.host}/signin'>Prime Deck ></a>
               <br><br>Login Details:
               <br>
               Username: ${user.username}<br>

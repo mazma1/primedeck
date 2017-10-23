@@ -1,23 +1,25 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('Subjects', {
+    return queryInterface.createTable('StudentSubjects', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      studentId: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         validate: {
           notEmpty: true
         }
       },
-      teacherId: {
+      subjectId: {
         allowNull: false,
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        defaultValue: []
+        type: Sequelize.INTEGER,
+        validate: {
+          notEmpty: true
+        }
       },
       createdAt: {
         allowNull: false,
@@ -30,6 +32,6 @@ module.exports = {
     });
   },
   down(queryInterface) {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('StudentSubjects');
   }
 };
