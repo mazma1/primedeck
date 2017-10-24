@@ -10,10 +10,15 @@ export default function validateInput(data) {
   const errors = {};
 
   if (!data.identifier) {
-    errors.identifier = 'This field is required';
+    errors.identifier = 'Username or Email is required';
+  }
+  if (data.identifier.trim().length === 0) {
+    errors.identifier = 'Username or Email cannot be empty';
   }
   if (!data.password) {
-    errors.password = 'This field is required';
+    errors.password = 'Password is required';
+  } else if (data.password.trim().length === 0) {
+    errors.password = 'Password cannot be empty';
   }
   return {
     errors,

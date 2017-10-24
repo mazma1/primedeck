@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 import toastr from 'toastr';
 import validateInput from '../../../utils/signInValidation';
 import { signInRequest } from '../../actions/auth';
@@ -37,7 +38,6 @@ class SignInForm extends React.Component {
       this.setState({ errors: {} });
       this.props.signInRequest(this.state).then(
         () => {
-          console.log(this.props.role)
           toastr.success('Sign in was successful. Welcome back!');
           if (this.props.role === 'admin') {
             this.props.history.push('/admin');
@@ -56,30 +56,45 @@ class SignInForm extends React.Component {
 
 
   render() {
-    return ( 
+    const { errors } = this.state;
+    return (
       <div className="flex-container">
         <h2 className="brand-text">Prime Deck</h2>
         <form className="form-width form-panel" onSubmit={this.handleSignIn}>
           <h4 className="text-center padding-bottom24">SIGN IN</h4>
-          <div className="form-group">
+          <div className={classnames('form-group', { 'has-error': errors.identifier })}>
             <label htmlFor="identifer">Username/Email</label>
             <input
               type="text"
               name="identifier"
               className="form-control"
               placeholder="Username or Email"
+              autoComplete="off"
               onChange={this.onChange}
             />
+            {
+              errors.identifier &&
+              <span className="help-block padding-bottom8">
+                {errors.identifier}
+              </span>
+           }
           </div>
-          <div className="form-group">
+          <div className={classnames('form-group', { 'has-error': errors.password })}>
             <label htmlFor="password">Password</label>
             <input
               type="password"
               name="password"
               className="form-control"
               placeholder="Password"
-              onChange={this.onChange} 
+              autoComplete="off"
+              onChange={this.onChange}
             />
+            {
+              errors.password &&
+              <span className="help-block padding-bottom8">
+                {errors.password}
+              </span>
+            }
           </div>
           <button type="submit" className="btn btn-success btn-block margin-top30">
             Submit
