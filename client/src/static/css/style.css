@@ -23,6 +23,14 @@ body {
   padding-bottom: 24px;
 }
 
+.padding-right20 {
+  padding-right: 20px;
+}
+
+.padding-left5 {
+  padding-left: 5px;
+}
+
 .flex-container {
   background: linear-gradient(
                      rgba(20,20,20, .5), 
@@ -52,3 +60,8 @@ body {
   margin-bottom: 20px;
   color: #fff;
 }
+
+.user-name-and-icon {
+  margin: 15px 25px;
+}
+

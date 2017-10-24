@@ -4,18 +4,16 @@ import {
   Switch,
   BrowserRouter
 } from 'react-router-dom';
-import Home from '../components/Home';
-import SignInForm from '../components/SignInForm';
-import AdminDashboard from '../components/Admin';
-import TeacherDashboard from '../components/Teacher';
-import StudentDashboard from '../components/Student';
+import SignInForm from '../components/main/SignInForm';
+import AdminDashboard from '../components/admin/AdminDashboard';
+import TeacherDashboard from '../components/teacher/TeacherDashboard';
+import StudentDashboard from '../components/student/StudentDashboard';
 
 /* eslint-disable react/jsx-max-props-per-line */
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Home} />
         <Route path="/signin" component={SignInForm} />
         <Route path="/admin" component={AdminDashboard} />
         <Route path="/teacher" component={TeacherDashboard} />

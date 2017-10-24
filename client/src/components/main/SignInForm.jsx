@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import toastr from 'toastr';
-import validateInput from '../../utils/signInValidation';
-import { signInRequest } from '../actions/auth';
+import validateInput from '../../../utils/signInValidation';
+import { signInRequest } from '../../actions/auth';
 
+/* eslint-disable function-paren-newline */
 class SignInForm extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +33,7 @@ class SignInForm extends React.Component {
 
   handleSignIn(event) {
     event.preventDefault();
-    // if (this.isValid()) {
+    if (this.isValid()) {
       this.setState({ errors: {} });
       this.props.signInRequest(this.state).then(
         () => {
@@ -50,7 +51,7 @@ class SignInForm extends React.Component {
         },
         ({ response }) => this.setState({ errors: response.data })
       );
-    // }
+    }
   }
 
 
@@ -85,7 +86,7 @@ class SignInForm extends React.Component {
           </button>
         </form>
       </div>
-    )
+    );
   }
 }
 

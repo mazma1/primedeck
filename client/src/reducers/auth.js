@@ -3,8 +3,8 @@ import { SET_CURRENT_USER, DELETE_CURRENT_USER } from '../actions/consts';
 
 const initialState = {
   isAuthenticated: false,
-  user: {} 
-}
+  user: {}
+};
 
 
 /**
