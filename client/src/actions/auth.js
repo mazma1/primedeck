@@ -35,3 +35,31 @@ export function signInRequest(userData) {
       dispatch(setCurrentUser(jwt.decode(token)));
     });
 }
+
+
+/**
+   * Informs reducer to delete details of the current user from the store
+   *
+   * @returns {action} action type and payload
+   */
+export function deleteCurrentUser() {
+  return {
+    type: DELETE_CURRENT_USER,
+    user: {}
+  };
+}
+
+
+/**
+   * Logs out a user and deletes token from local storage
+   *
+   * @returns {action} action to delete user details
+   */
+export function logout() {
+  return (dispatch) => {
+    window.location.href = '/signin';
+    localStorage.removeItem('jwtToken');
+    setAuthorizationToken(false);
+    dispatch(deleteCurrentUser());
+  };
+}

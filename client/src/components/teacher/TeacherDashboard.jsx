@@ -1,12 +1,22 @@
 import React from 'react';
+import toastr from 'toastr';
 import { connect } from 'react-redux';
 import NavigationBar from '../../components/main/Navbar';
 
 class TeacherDashboard extends React.Component {
+
+  componentDidMount() {
+    const { role } = this.props.user;
+    if (role !== 'teacher') {
+      toastr.error('You do not have permission to access this page');
+      this.props.history.push('/signin');
+    }
+  }
+
   render() {
     return (
       <div>
-        <NavigationBar username={this.props.firstname} />
+        <NavigationBar />
         <h2>Shout out for Teacher!</h2>
       </div>
     );
@@ -15,7 +25,7 @@ class TeacherDashboard extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    firstname: state.signedInUser.user.firstname
+    user: state.signedInUser.user
   };
 }
 
