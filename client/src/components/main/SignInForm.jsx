@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
@@ -7,7 +8,23 @@ import validateInput from '../../../utils/signInValidation';
 import { signInRequest } from '../../actions/auth';
 
 /* eslint-disable function-paren-newline */
+
+/**
+   * Display Sign In Form
+   *
+   * @class SignInForm
+   *
+   * @extends {React.Component}
+   */
 class SignInForm extends React.Component {
+
+  /**
+    * Creates an instance of SignInForm
+    *
+    * @param {any} props
+    *
+    * @memberof SignInForm
+    */
   constructor(props) {
     super(props);
     this.state = {
@@ -20,10 +37,24 @@ class SignInForm extends React.Component {
     this.handleSignIn = this.handleSignIn.bind(this);
   }
 
+
+  /**
+    * Handles change event of sign in input fields
+    *
+    * @param {SyntheticEvent} event
+    *
+    * @returns {void} null
+    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+
+  /**
+    * Handles input validation on client
+    *
+    * @returns {boolean} If an input is valid or not
+    */
   isValid() {
     const { errors, valid } = validateInput(this.state);
     if (!valid) {
@@ -32,6 +63,13 @@ class SignInForm extends React.Component {
     return valid;
   }
 
+  /**
+    * Makes request to authenticate a user
+    *
+    * @param {SyntheticEvent} event
+    *
+    * @returns {void}
+    */
   handleSignIn(event) {
     event.preventDefault();
     if (this.isValid()) {
@@ -54,7 +92,11 @@ class SignInForm extends React.Component {
     }
   }
 
-
+  /**
+    * Renders Sign In Form markup
+    *
+    * @returns {ReactElement} SignInForm component
+    */
   render() {
     const { errors } = this.state;
     return (
@@ -110,6 +152,12 @@ function mapStateToProps(state) {
     role: state.signedInUser.user.role
   };
 }
+
+SignInForm.propTypes = {
+  role: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
+  signInRequest: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, { signInRequest })(SignInForm);
 

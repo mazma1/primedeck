@@ -23,6 +23,7 @@ export default function (ComposedComponent) {
    * @extends {React.Component}
    */
   class CheckAuth extends React.Component {
+
     /**
      * Creates an instance of CheckAuth
      *

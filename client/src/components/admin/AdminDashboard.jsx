@@ -1,10 +1,24 @@
 import React from 'react';
 import toastr from 'toastr';
 import { connect } from 'react-redux';
-import NavigationBar from '../../components/main/Navbar';
+import PropTypes from 'prop-types';
+import NavigationBar from '../../components/main/NavigationBar';
 
+
+/**
+ * Display AdminDashboard
+ *
+ * @class AdminDashboard
+ *
+ * @extends {React.Component}
+ */
 class AdminDashboard extends React.Component {
 
+  /**
+   * Checks if a user is an admin before component is rendered
+   *
+   * @memberof AdminDashboard
+   */
   componentDidMount() {
     const { role } = this.props.user;
     if (role !== 'admin') {
@@ -13,6 +27,11 @@ class AdminDashboard extends React.Component {
     }
   }
 
+  /**
+   * Renders AdminDashboard markup
+   *
+   * @returns {ReactElement} AdminDashboard component
+   */
   render() {
     return (
       <div>
@@ -29,6 +48,11 @@ function mapStateToProps(state) {
 
   };
 }
+
+AdminDashboard.propTypes = {
+  user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
+};
 
 export default connect(mapStateToProps)(AdminDashboard);
 

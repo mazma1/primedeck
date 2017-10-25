@@ -1,10 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 
+
+/**
+   * Display NavigationBar
+   *
+   * @class NavigationBar
+   *
+   * @extends {React.Component}
+   */
 class NavigationBar extends React.Component {
+
+  /**
+   * Creates an instance of NavigationBar
+   *
+   * @param {any} props
+   *
+   * @memberof NavigationBar
+   */
   constructor(props) {
     super(props);
 
@@ -12,18 +28,24 @@ class NavigationBar extends React.Component {
   }
 
   /**
- * Logs a user out
- *
- * @param {SyntheticEvent} event
- *
- * @returns {void}
- */
+    * Logs a user out
+    *
+    * @param {SyntheticEvent} event
+    *
+    * @returns {void}
+    */
   logout(event) {
     event.preventDefault();
     this.props.logout();
     this.props.history.push('/signin')
   }
 
+
+  /**
+    * Renders Navigation Bar markup
+    *
+    * @returns {ReactElement} NavigationBar component
+    */
   render() {
     const { firstname, lastname } = this.props.user;
     return (
@@ -74,5 +96,10 @@ function mapStateToProps(state) {
 
   };
 }
+
+NavigationBar.propTypes = {
+  user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
+};
 
 export default withRouter(connect(mapStateToProps, { logout })(NavigationBar));
