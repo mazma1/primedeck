@@ -20,8 +20,9 @@ class AdminDashboard extends React.Component {
    * @memberof AdminDashboard
    */
   componentDidMount() {
+    const token = localStorage.getItem('jwtToken');
     const { role } = this.props.user;
-    if (role !== 'admin') {
+    if (token && role !== 'admin') {
       toastr.error('You do not have permission to access this page');
       this.props.history.push('/signin');
     }

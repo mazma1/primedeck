@@ -19,8 +19,9 @@ class StudentDashboard extends React.Component {
     * @memberof StudentDashboard
     */
   componentDidMount() {
+    const token = localStorage.getItem('jwtToken');
     const { role } = this.props.user;
-    if (role !== 'student') {
+    if (token && role !== 'student') {
       toastr.error('You do not have permission to access this page');
       this.props.history.push('/signin');
     }

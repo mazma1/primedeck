@@ -154,9 +154,13 @@ function mapStateToProps(state) {
 }
 
 SignInForm.propTypes = {
-  role: PropTypes.string.isRequired,
+  role: PropTypes.string,
   history: PropTypes.object.isRequired,
   signInRequest: PropTypes.func.isRequired,
+};
+
+SignInForm.defaultProps = {
+  role: ''
 };
 
 export default connect(mapStateToProps, { signInRequest })(SignInForm);
