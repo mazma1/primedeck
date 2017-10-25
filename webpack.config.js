@@ -9,12 +9,12 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     'webpack-hot-middleware/client?noInfo=true',
-    path.join(__dirname, './client/index.jsx')
+    path.join(__dirname, './client/src/index.jsx')
   ],
   output: {
     path: '/',
     filename: 'bundle.js',
-    // publicPath: '/dist/'
+    publicPath: 'http://localhost:2000'
   },
   module: {
     rules: [
@@ -31,6 +31,22 @@ module.exports = {
           fallback: 'style-loader',
           use: 'css-loader?sourceMap!sass-loader?sourceMap'
         })
+      },
+      {
+        test: /bootstrap\/dist\/js\/umd\//,
+        loader: 'imports?jQuery=jquery'
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/fonts/[name].[ext]'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        loader: 'file-loader?name=/img/[name].[ext]'
       }
     ]
   },
@@ -38,7 +54,11 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './client/index.html' }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
+    // new HtmlWebpackPlugin({ template: './client/index.html' }),
     new ExtractTextPlugin({ filename: 'css/style.css' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
