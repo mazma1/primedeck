@@ -7,7 +7,10 @@ const DIST_DIR = path.resolve(__dirname, './client/dist');
 
 module.exports = {
   devtool: 'source-map',
-  entry: ['webpack-hot-middleware/client?noInfo=true', path.join(__dirname, './client/index.jsx')],
+  entry: [
+    'webpack-hot-middleware/client?noInfo=true',
+    path.join(__dirname, './client/index.jsx')
+  ],
   output: {
     path: '/',
     filename: 'bundle.js',
