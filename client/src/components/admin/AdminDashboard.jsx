@@ -2,7 +2,8 @@ import React from 'react';
 import toastr from 'toastr';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import NavigationBar from '../../components/main/NavigationBar';
+import AdminFrame from '../admin/AdminFrame';
+import Statistics from '../../components/admin/Statistics';
 
 
 /**
@@ -36,8 +37,9 @@ class AdminDashboard extends React.Component {
   render() {
     return (
       <div>
-        <NavigationBar />
-        <h2>Shout out for Admin!</h2>
+        <AdminFrame>
+          <Statistics />
+        </AdminFrame>
       </div>
     );
   }

@@ -37,7 +37,7 @@ class NavigationBar extends React.Component {
   logout(event) {
     event.preventDefault();
     this.props.logout();
-    this.props.history.push('/signin')
+    this.props.history.push('/signin');
   }
 
 
