@@ -33,7 +33,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use('/dist', express.static(path.join(__dirname, '../client/src/index.html')));
 
-app.get('*', (req, res) => res.status(200).sendFile(
+app.get('/*', (req, res) => res.sendFile(
   path.join(__dirname, '../client/src/index.html')
 ));
 

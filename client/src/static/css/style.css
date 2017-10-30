@@ -115,3 +115,50 @@ body {
 .courses {
   display: true;
 }
+
+ul.dropdown-menu {
+  width: 100%;
+}
+
+span.users.caret {
+  margin-left: 159px;
+}
+
+span.courses.caret {
+  margin-left: 145px;
+}
+
+ul.dropdown-menu li {
+  padding: 10px 15px 5px;
+  font-size: 15px;
+}
+
+ul.dropdown-menu li a {
+  height: 38px;
+  padding-top: 8px;
+}
+
+
+li.dropdown-menu {
+  padding-top: 0;
+  padding-bottom: 0;
+  box-shadow: 0 0px 0px rgba(0,0,0,.175);
+  /* box-shadow: 0 6px 12px rgba(0,0,0,.175); */
+}
+
+.nav-stacked>li+li {
+  margin-top: 10px;
+}
+
+.no-dropdown {
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 5px;
+}
+
+.dropdown-menu {
+  position: relative !important;
+}  
+
+.open>.dropdown-menu {
+   margin-bottom: 20px;
+}

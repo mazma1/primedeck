@@ -80,7 +80,7 @@ class RegistrationForm extends Component {
                 </div>
               </div>
             </div>
-            <button type="submit" className="btn btn-info btn-block">Submit</button>
+            <button type="submit" className="btn btn-success btn-block">Submit</button>
           </form>
         </div>
       </AdminFrame>
