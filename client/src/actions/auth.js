@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER, DELETE_CURRENT_USER } from './consts';
+import { SET_CURRENT_USER, DELETE_CURRENT_USER } from './constants';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
 
 

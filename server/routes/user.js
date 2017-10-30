@@ -23,6 +23,12 @@ router.get(
 );
 
 router.get(
+  '/api/v1/users/count',
+  validateToken,
+  userController.allUsersCount
+);
+
+router.get(
   '/api/v1/users/:userId',
   validateToken,
   validateUserId,
