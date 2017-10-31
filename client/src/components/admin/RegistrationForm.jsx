@@ -20,7 +20,7 @@ class RegistrationForm extends Component {
     return (
       <AdminFrame>
         <div className="col-sm-12 form">
-          <h3 className="reg-header">Registration Form</h3>
+          <h3 className="reg-header">Register New User</h3>
           <form>
             <div className="form-group">
               <label>First Name</label>

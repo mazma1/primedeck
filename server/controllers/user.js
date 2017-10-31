@@ -185,9 +185,9 @@ export default {
         'id', 'firstName', 'lastName', 'username', 'phoneNumber', 'role'
       ]
     }).then((users) => {
-      let admins = [];
-      let teachers = [];
-      let students = [];
+      const admins = [];
+      const teachers = [];
+      const students = [];
       users.map((user) => {
         if (user.role === 'admin') {
           admins.push(user);

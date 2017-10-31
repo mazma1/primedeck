@@ -47,7 +47,7 @@ class Statistics extends Component {
 
 function mapStateToProps(state) {
   return {
-    allUsers: state.allUsers
+    allUsers: state.users.usersCount
   };
 }
 

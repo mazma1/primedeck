@@ -1,6 +1,9 @@
-import { SET_USERS_COUNT } from '../actions/constants';
+import { SET_USERS_COUNT, SET_ALL_USERS } from '../actions/constants';
 
-const initialState = {};
+const initialState = {
+  usersCount: {},
+  allUsers: []
+};
 
 
 /**
@@ -16,9 +19,18 @@ export default (state = initialState, action = {}) => {
     case SET_USERS_COUNT:
       return {
         ...state,
-        admins: action.users.admins,
-        instructors: action.users.teachers,
-        students: action.users.students
+        usersCount: {
+          admins: action.users.admins,
+          instructors: action.users.teachers,
+          students: action.users.students
+        }
+      };
+
+    case SET_ALL_USERS:
+      return {
+        ...state,
+        allUsers: action.allUsers.users,
+        pagination: action.allUsers.pagination
       };
 
     default:

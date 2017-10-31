@@ -162,3 +162,11 @@ li.dropdown-menu {
 .open>.dropdown-menu {
    margin-bottom: 20px;
 }
+
+ul.pagination li {
+  cursor: pointer;
+}
+
+a:focus {
+  outline: none;
+}
