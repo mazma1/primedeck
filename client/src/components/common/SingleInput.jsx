@@ -5,7 +5,7 @@ const propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   inputType: PropTypes.oneOf(['text', 'email', 'number']).isRequired,
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired
 };

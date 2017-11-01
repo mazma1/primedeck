@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { SET_USERS_COUNT, SET_ALL_USERS } from './constants';
 
-
 /**
    * Informs reducers that the request to get users count finished successfully
    *
@@ -15,7 +14,6 @@ export function setUsersCount(users) {
     users
   };
 }
-
 
 /**
   * Makes request to get user's statistics
@@ -55,5 +53,20 @@ export function getAllUsers({ offset = 0, limit = 2 }) {
       const { users, pagination } = res.data;
       const allUsers = { users, pagination };
       dispatch(setAllUsers(allUsers));
+    });
+}
+
+/**
+  * Makes request to submit a new user's details to the database
+  *
+  * @returns {response} request response
+  */
+export function submitNewUser(userDetails) {
+  console.log(userDetails)
+  return dispatch => axios.post('/api/v1/users/register', userDetails)
+    .then((res) => {
+      console.log(res)
+      // const users = res.data;
+      // dispatch(setUsersCount(users));
     });
 }

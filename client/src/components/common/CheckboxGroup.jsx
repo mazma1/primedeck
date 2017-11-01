@@ -17,8 +17,8 @@ const CheckboxGroup = props => (
           <label>
             <input
               onChange={props.onChange}
-              value={course.name}
-              checked={props.selectedCourses.indexOf(course.name) > -1}
+              value={course.id}
+              checked={(props.selectedCourses.indexOf(course.id)) > -1}
               type="checkbox"
             /> {course.name}
           </label>

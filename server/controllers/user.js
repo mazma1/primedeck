@@ -77,7 +77,7 @@ export default {
         where: {
           $or: [{ username: req.body.username }, { email: req.body.email }]
         },
-      }).then((existingUser, err) => {
+      }).then((existingUser) => {
         if (existingUser) {
           if (existingUser.username === req.body.username) {
             errors.username = 'User with username already exists';
@@ -115,9 +115,22 @@ export default {
               subjects.map((subject) => {
                 models.StudentSubject.create({
                   studentId: user.id,
-                  subjectId: subject
+                  subjectId: parseInt(subject, 10)
                 })
                   .catch(error => res.status(500).send({ error: error.message }));
+              });
+            }
+            if (user.role === 'teacher') {
+              const { subjects } = req.body;
+              subjects.forEach((subject) => {
+                models.Subject.findById(subject).then((sub) => {
+                  sub.teacherId.push(user.id);
+                  models.Subject.update({
+                    teacherId: sub.teacherId
+                  }, {
+                    where: { id: subject }
+                  });
+                }).catch(error => res.status(500).send({ error: error.message }));
               });
             }
             sendMail(req, user);

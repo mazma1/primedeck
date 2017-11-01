@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import toastr from 'toastr';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import AdminFrame from '../admin/AdminFrame';
 import SingleInput from '../common/SingleInput';
 import Select from '../common/Select';
 import CheckboxGroup from '../common/CheckboxGroup';
 import { getAllCourses } from '../../actions/courses';
+import { submitNewUser } from '../../actions/users';
 
 class RegistrationForm extends Component {
   constructor(props) {
@@ -16,11 +19,11 @@ class RegistrationForm extends Component {
       username: '',
       email: '',
       phoneNumber: '',
-      roleOptions: ['admin', 'instructor', 'student'],
+      roleOptions: ['admin', 'teacher', 'student'],
       role: '',
       age: '',
-      class: '',
-      selectedCourses: []
+      className: '',
+      subjects: []
     };
 
     this.handleRoleChange = this.handleRoleChange.bind(this);
@@ -42,21 +45,24 @@ class RegistrationForm extends Component {
   }
 
   handleCourseSelection(event) {
-    const newSelection = event.target.value;
+    const newSelection = parseInt(event.target.value, 10);
     let newSelectionArray;
-
-    if (this.state.selectedCourses.indexOf(newSelection) > -1) {
-      newSelectionArray = this.state.selectedCourses.filter(course => course !== newSelection);
+    if (this.state.subjects.includes(newSelection)) {
+      newSelectionArray = this.state.subjects.filter(course => course !== newSelection);
     } else {
-      newSelectionArray = [...this.state.selectedCourses, newSelection];
+      newSelectionArray = [...this.state.subjects, newSelection];
     }
-
-    this.setState({ selectedCourses: newSelectionArray });
+    this.setState({ subjects: newSelectionArray });
   }
 
   submitNewUser(event) {
     event.preventDefault();
-    console.log(this.state, 'current state')
+    this.props.submitNewUser(this.state).then(
+      (res) => {
+        console.log(res, '*****')
+        toastr.success(res.data.message);
+      }
+    ).catch();
   }
 
   render() {
@@ -125,19 +131,19 @@ class RegistrationForm extends Component {
               />
               <SingleInput
                 label="Class"
-                name="class"
+                name="className"
                 inputType="text"
                 content={this.state.class}
                 onChange={this.handleInputChange}
                 placeholder="Class"
               />
             </div>
-            <div className={role === 'student' || role === 'instructor' ? 'courses' : 'no-display'}>
+            <div className={role === 'student' || role === 'teacher' ? 'courses' : 'no-display'}>
               <CheckboxGroup
                 label="Courses"
                 onChange={this.handleCourseSelection}
                 courses={this.props.courses}
-                selectedCourses={this.state.selectedCourses}
+                selectedCourses={this.state.subjects}
               />
             </div>
             <button type="submit" className="btn btn-success btn-block">Submit</button>
@@ -148,10 +154,18 @@ class RegistrationForm extends Component {
   }
 }
 
+
 function mapStateToProps(state) {
   return {
     courses: state.courses.courses
   };
 }
 
-export default connect(mapStateToProps, { getAllCourses })(RegistrationForm);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    getAllCourses,
+    submitNewUser
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
