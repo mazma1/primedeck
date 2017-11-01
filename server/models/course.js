@@ -1,39 +1,32 @@
 export default (sequelize, DataTypes) => {
-  const Resource = sequelize.define('Resource', {
-    courseId: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      validate: {
-        notEmpty: true
-      }
-    },
-    topic: {
+  const Course = sequelize.define('Course', {
+    name: {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
     },
-    className: {
+    code: {
       allowNull: false,
       type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    description: {
+      allowNull: false,
+      type: DataTypes.TEXT,
       validate: {
         notEmpty: true
       }
     },
     teacherId: {
       allowNull: false,
-      type: DataTypes.INTEGER,
-      validate: {
-        notEmpty: true
-      }
-    },
-    note: {
-      allowNull: false,
       type: DataTypes.ARRAY(DataTypes.STRING),
       defaultValue: []
     }
   });
-  Resource.associate = (models) => { };
-  return Resource;
+  Course.associate = (models) => { };
+  return Course;
 };

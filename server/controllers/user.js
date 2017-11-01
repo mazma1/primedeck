@@ -111,24 +111,23 @@ export default {
               };
               models.Student.create(studentDetails)
                 .catch(error => res.status(500).send({ error: error.message }));
-              const { subjects } = req.body;
-              subjects.map((subject) => {
-                models.StudentSubject.create({
+              const { courses } = req.body;
+              courses.map((course) => {
+                models.StudentCourse.create({
                   studentId: user.id,
-                  subjectId: parseInt(subject, 10)
-                })
-                  .catch(error => res.status(500).send({ error: error.message }));
+                  courseId: parseInt(course, 10)
+                }).catch(error => res.status(500).send({ error: error.message }));
               });
             }
             if (user.role === 'teacher') {
-              const { subjects } = req.body;
-              subjects.forEach((subject) => {
-                models.Subject.findById(subject).then((sub) => {
-                  sub.teacherId.push(user.id);
-                  models.Subject.update({
-                    teacherId: sub.teacherId
+              const { courses } = req.body;
+              courses.forEach((course) => {
+                models.Course.findById(course).then((response) => {
+                  response.teacherId.push(user.id);
+                  models.Course.update({
+                    teacherId: response.teacherId
                   }, {
-                    where: { id: subject }
+                    where: { id: course }
                   });
                 }).catch(error => res.status(500).send({ error: error.message }));
               });

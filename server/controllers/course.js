@@ -5,7 +5,7 @@ import models from '../models';
 /* eslint-disable consistent-return */
 export default {
   getAllCourses(req, res) {
-    return models.Subject.findAll({
+    return models.Course.findAll({
       attributes: [
         'id', 'name'
       ]

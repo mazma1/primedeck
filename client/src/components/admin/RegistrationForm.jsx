@@ -23,7 +23,7 @@ class RegistrationForm extends Component {
       role: '',
       age: '',
       className: '',
-      subjects: []
+      courses: []
     };
 
     this.handleRoleChange = this.handleRoleChange.bind(this);
@@ -47,12 +47,12 @@ class RegistrationForm extends Component {
   handleCourseSelection(event) {
     const newSelection = parseInt(event.target.value, 10);
     let newSelectionArray;
-    if (this.state.subjects.includes(newSelection)) {
-      newSelectionArray = this.state.subjects.filter(course => course !== newSelection);
+    if (this.state.courses.includes(newSelection)) {
+      newSelectionArray = this.state.courses.filter(course => course !== newSelection);
     } else {
-      newSelectionArray = [...this.state.subjects, newSelection];
+      newSelectionArray = [...this.state.courses, newSelection];
     }
-    this.setState({ subjects: newSelectionArray });
+    this.setState({ courses: newSelectionArray });
   }
 
   submitNewUser(event) {
@@ -143,7 +143,7 @@ class RegistrationForm extends Component {
                 label="Courses"
                 onChange={this.handleCourseSelection}
                 courses={this.props.courses}
-                selectedCourses={this.state.subjects}
+                selectedCourses={this.state.courses}
               />
             </div>
             <button type="submit" className="btn btn-success btn-block">Submit</button>
