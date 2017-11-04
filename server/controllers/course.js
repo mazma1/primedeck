@@ -7,7 +7,7 @@ export default {
   getAllCourses(req, res) {
     return models.Course.findAll({
       attributes: [
-        'id', 'name'
+        'id', 'name', 'code', 'description'
       ]
     }).then((courses) => {
       res.status(200).send({
