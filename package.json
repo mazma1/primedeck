@@ -5,6 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon --watch server --exec babel-node -- server/app.js",
+    "build:client": "webpack -p --config ./webpack.config.prod.js",
+    "build:server": "rimraf server/dist/ && babel ./server --out-dir ./server/dist/ --copy-files",
+    "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
+    "production": "NODE_ENV=production npm run build",
+    "postinstall": "npm run production",
+    "start": "node server/dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "reset:db": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all"
   },

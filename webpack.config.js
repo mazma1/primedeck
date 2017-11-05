@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const DIST_DIR = path.resolve(__dirname, './client/dist');
@@ -14,7 +13,7 @@ module.exports = {
   output: {
     path: '/',
     filename: 'bundle.js',
-    publicPath: 'http://localhost:2000'
+    publicPath: 'http://localhost:9000'
   },
   module: {
     rules: [
@@ -58,7 +57,6 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery'
     }),
-    // new HtmlWebpackPlugin({ template: './client/index.html' }),
     new ExtractTextPlugin({ filename: 'css/style.css' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
