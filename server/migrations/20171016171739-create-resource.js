@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      subjectId: {
+      courseId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         validate: {

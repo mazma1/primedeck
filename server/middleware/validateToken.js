@@ -5,8 +5,8 @@ export default (req, res, next) => {
   let token;
 
   if (authorizationHeader) {
-    const [second] = authorizationHeader.split(' ');
-    token = second;
+    const [bearer, authToken] = authorizationHeader.split(' ');
+    token = authToken;
   } else {
     token = (req.body && req.body.access_token) ||
       (req.query && req.query.access_token) ||

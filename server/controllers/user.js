@@ -77,7 +77,7 @@ export default {
         where: {
           $or: [{ username: req.body.username }, { email: req.body.email }]
         },
-      }).then((existingUser, err) => {
+      }).then((existingUser) => {
         if (existingUser) {
           if (existingUser.username === req.body.username) {
             errors.username = 'User with username already exists';
@@ -111,13 +111,25 @@ export default {
               };
               models.Student.create(studentDetails)
                 .catch(error => res.status(500).send({ error: error.message }));
-              const { subjects } = req.body;
-              subjects.map((subject) => {
-                models.StudentSubject.create({
+              const { courses } = req.body;
+              courses.map((course) => {
+                models.StudentCourse.create({
                   studentId: user.id,
-                  subjectId: subject
-                })
-                  .catch(error => res.status(500).send({ error: error.message }));
+                  courseId: parseInt(course, 10)
+                }).catch(error => res.status(500).send({ error: error.message }));
+              });
+            }
+            if (user.role === 'teacher') {
+              const { courses } = req.body;
+              courses.forEach((course) => {
+                models.Course.findById(course).then((response) => {
+                  response.teacherId.push(user.id);
+                  models.Course.update({
+                    teacherId: response.teacherId
+                  }, {
+                    where: { id: course }
+                  });
+                }).catch(error => res.status(500).send({ error: error.message }));
               });
             }
             sendMail(req, user);
@@ -161,6 +173,47 @@ export default {
           pagination: pagination(users.count, limit, offset)
         });
       }
+    }).catch(error => res.status(500).send(error.message));
+  },
+
+  /**
+   * Fetches all the users
+   * Route: GET: /api/v1/users
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {res} array of all users
+   */
+  allUsersCount(req, res) {
+    const { role } = req.decoded.data;
+    if (role === 'student') {
+      return res.status(403).send({
+        error: 'You do not have permission to view all users'
+      });
+    }
+    return models.User.findAll({
+      attributes: [
+        'id', 'firstName', 'lastName', 'username', 'phoneNumber', 'role'
+      ]
+    }).then((users) => {
+      const admins = [];
+      const teachers = [];
+      const students = [];
+      users.map((user) => {
+        if (user.role === 'admin') {
+          admins.push(user);
+        } else if (user.role === 'teacher') {
+          teachers.push(user);
+        } else if (user.role === 'student') {
+          students.push(user);
+        }
+      });
+      res.status(200).send({
+        admins: admins.length,
+        teachers: teachers.length,
+        students: students.length
+      });
     }).catch(error => res.status(500).send(error.message));
   },
 

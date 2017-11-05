@@ -9,6 +9,7 @@
 
 body {
   font-family: 'Delius', cursive;
+  background-color: #f1efef;
 }
 
  btn:active:focus, .btn:focus {
@@ -25,6 +26,10 @@ body {
 
 .padding-bottom24 {
   padding-bottom: 24px;
+}
+
+.padding-right10 {
+  padding-right: 10px;
 }
 
 .padding-right20 {
@@ -69,3 +74,120 @@ body {
   margin: 15px 25px;
 }
 
+.sidebar {
+  background-color: #fff;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.card {
+  background-color: white;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.col-spaced {
+  margin:10px; padding:10px;
+}
+
+.form {
+  padding: 40px;
+  background-color: #fff;
+}
+
+.reg-header {
+  margin-top: -4px;
+  margin-bottom: 20px;
+}
+
+.no-display {
+  display: none;
+}
+
+.student {
+  display: true;
+}
+
+.instructor {
+  display: true;
+}
+
+.courses {
+  display: true;
+}
+
+ul.dropdown-menu {
+  width: 100%;
+}
+
+span.users.caret {
+  margin-left: 159px;
+}
+
+span.courses.caret {
+  margin-left: 145px;
+}
+
+ul.dropdown-menu li {
+  padding: 10px 15px 5px;
+  font-size: 15px;
+}
+
+ul.dropdown-menu li a {
+  height: 38px;
+  padding-top: 8px;
+}
+
+
+li.dropdown-menu {
+  padding-top: 0;
+  padding-bottom: 0;
+  box-shadow: 0 0px 0px rgba(0,0,0,.175);
+  /* box-shadow: 0 6px 12px rgba(0,0,0,.175); */
+}
+
+.nav-stacked>li+li {
+  margin-top: 10px;
+}
+
+.no-dropdown {
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 5px;
+}
+
+.dropdown-menu {
+  position: relative !important;
+}  
+
+.open>.dropdown-menu {
+   margin-bottom: 20px;
+}
+
+ul.pagination li {
+  cursor: pointer;
+}
+
+a:focus {
+  outline: none;
+}
+
+.course-card {
+  height: 300px;
+  background: #f1efef;
+  padding: 20px;
+}
+
+[class*=col-] {
+    margin-bottom: 15px;
+}
+
+.all-courses {
+  background-color: #fff;
+  padding: 40px;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.course-card hr {
+  border-top: 1px solid #000;
+}

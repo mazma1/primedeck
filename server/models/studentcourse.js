@@ -7,7 +7,7 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    subjectId: {
+    courseId: {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {

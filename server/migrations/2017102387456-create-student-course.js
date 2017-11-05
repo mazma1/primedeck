@@ -1,6 +1,6 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('StudentSubjects', {
+    return queryInterface.createTable('StudentCourses', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,7 +14,7 @@ module.exports = {
           notEmpty: true
         }
       },
-      subjectId: {
+      courseId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         validate: {
@@ -32,6 +32,6 @@ module.exports = {
     });
   },
   down(queryInterface) {
-    return queryInterface.dropTable('StudentSubjects');
+    return queryInterface.dropTable('StudentCourses');
   }
 };

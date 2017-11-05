@@ -16,6 +16,7 @@ export default (sequelize, DataTypes) => {
     },
     username: {
       allowNull: false,
+      unique: true,
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
