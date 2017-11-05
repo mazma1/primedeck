@@ -20,7 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/signin" component={SignInForm} />
+        <Route exact path="/" component={SignInForm} />
         <Route exact path="/admin" component={CheckAuth(AdminDashboard)} />
         <Route exact path="/admin/register" component={CheckAuth(RegistrationForm)} />
         <Route exact path="/admin/users" component={CheckAuth(AllUsers)} />
