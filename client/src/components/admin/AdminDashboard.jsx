@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AdminFrame from '../admin/AdminFrame';
 import Statistics from '../../components/admin/Statistics';
+import { getAllCourses } from '../../actions/courses';
 
 
 /**
@@ -27,6 +28,7 @@ class AdminDashboard extends React.Component {
       toastr.error('You do not have permission to access this page');
       this.props.history.push('/signin');
     }
+    this.props.getAllCourses();
   }
 
   /**
@@ -54,8 +56,9 @@ function mapStateToProps(state) {
 
 AdminDashboard.propTypes = {
   user: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  getAllCourses: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(AdminDashboard);
+export default connect(mapStateToProps, { getAllCourses })(AdminDashboard);
 

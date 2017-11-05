@@ -32,6 +32,10 @@ class RegistrationForm extends Component {
     this.handleCourseSelection = this.handleCourseSelection.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getAllCourses();
+  }
+
 
   handleRoleChange(event) {
     this.setState({ role: event.target.value });

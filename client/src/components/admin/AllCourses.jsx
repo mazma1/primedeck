@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AdminFrame from '../admin/AdminFrame';
-import CourseCard from '../common/CourseCard';
+import CourseCard from '../common/courses/CourseCard';
 import { getAllCourses } from '../../actions/courses';
 
 class AllCourses extends Component {
@@ -37,7 +37,7 @@ function mapStateToProps(state) {
 
 AllCourses.propTypes = {
   getAllCourses: PropTypes.func.isRequired,
-  courses: PropTypes.object.isRequired
+  courses: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps, { getAllCourses })(AllCourses);

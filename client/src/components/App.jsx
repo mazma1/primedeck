@@ -13,6 +13,7 @@ import RegistrationForm from '../components/admin/RegistrationForm';
 import AllUsers from '../components/admin/AllUsers';
 import AllCourses from '../components/admin/AllCourses';
 import NewCourse from '../components/admin/NewCourse';
+import SingleCoursePage from '../components/common/courses/SingleCoursePage';
 
 /* eslint-disable react/jsx-max-props-per-line */
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/admin/register" component={CheckAuth(RegistrationForm)} />
         <Route exact path="/admin/users" component={CheckAuth(AllUsers)} />
         <Route exact path="/admin/courses" component={CheckAuth(AllCourses)} />
+        <Route exact path="admin/courses/:id" component={CheckAuth(SingleCoursePage)} />
         <Route exact path="/admin/new-course" component={CheckAuth(NewCourse)} />
         <Route path="/teacher" component={CheckAuth(TeacherDashboard)} />
         <Route path="/student" component={CheckAuth(StudentDashboard)} />
