@@ -7,6 +7,14 @@ import validateUserId from '../middleware/validateUserId';
 const router = express.Router();
 
 /* eslint-disable function-paren-newline */
+
+router.get('/api/v1', (req, res) => {
+  res.status(200).send({
+    message: 'Welcome to Primedeck API'
+  });
+});
+
+
 router.post('/api/v1/users/signin', userController.signin);
 
 router.post(
